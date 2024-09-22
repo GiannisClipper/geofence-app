@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyGeofenceApp"
+        tools:targetApi="31">
+
+        <!--
+             TODO: Before you run your application, you need a Google Maps API key.
+             To get one, follow the directions here:
+                https://developers.google.com/maps/documentation/android-sdk/get-api-key
+             Once you have your API key (it starts with "AIza"), define a new property in your
+             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+             
+             to create api-key: https://console.cloud.google.com/apis/credentials
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="this-should-be-your-google-maps-api-key" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MapActivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="gr.hua.dit.it00000.mygeofenceapp.MAP_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ResultsMapActivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="gr.hua.dit.it00000.mygeofenceapp.RESULTS_MAP_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".TrackService"
+            android:foregroundServiceType="location"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
+
+        <provider
+            android:name=".MapContentProvider"
+            android:authorities="gr.hua.dit.it00000.mygeofenceapp.contentprovider"
+            android:exported="false"
+            android:readPermission="true"
+            android:writePermission="true">
+        </provider>
+    </application>
+
+</manifest>
